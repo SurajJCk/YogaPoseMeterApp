@@ -1,0 +1,168 @@
+/* Full-screen leaderboard container with centered content */
+.leaderboard-container {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+  height: 100vh; /* Full viewport height */
+  width: 200vw; /* Full viewport width */
+  background: url("https://path-to-your-background-image.jpg") no-repeat center
+    center/cover; /* Replace with your background image */
+  color: white;
+  font-family: "Press Start 2P", cursive; /* Font style */
+  box-sizing: border-box; /* Include padding in total width and height */
+}
+
+/* Main Leaderboard Container */
+.leaderboard {
+  width: 1100px; /* Increased fixed width to accommodate all columns */
+  padding: 40px; /* Inner padding */
+  border-radius: 15px; /* Rounded corners */
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+  box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.2); /* Soft shadow */
+  margin: 20px auto; /* Centering */
+}
+
+/* Neon Title for Leaderboard */
+.neon-title {
+  width: 100%; /* Full width */
+  text-align: center; /* Center align title */
+  font-size: 36px; /* Larger font size */
+  margin-bottom: 30px; /* Space below title */
+  color: #ffcc00; /* Bright gold color for better visibility */
+  text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00,
+    0 0 40px #ffcc00, 0 0 50px #ffcc00; /* Enhanced glow effect */
+}
+
+/* Leaderboard List */
+.leaderboard-list {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+/* Leaderboard Item with Column Layout */
+.leaderboard-item {
+  display: grid; /* Use grid layout */
+  grid-template-columns: 1fr 2fr 2fr 2fr 2fr; /* Define columns for rank, name, score, place, and department */
+  align-items: center; /* Center items vertically */
+  padding: 15px 20px; /* Inner padding */
+  margin-bottom: 15px; /* Space below each item */
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  border-radius: 10px; /* Rounded corners */
+  transition: all 0.5s ease-in-out; /* Smooth transition */
+  opacity: 1; /* Ensure items are visible */
+  transform: translateY(0); /* Ensure items are in place */
+}
+
+.leaderboard-item.visible {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move to original position */
+}
+
+.leaderboard-item:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Highlight on hover */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Shadow effect on hover */
+}
+
+/* Adjusted Rank, Name, Score, Place, and Department */
+.leaderboard-rank {
+  font-size: 24px; /* Font size for rank */
+  font-weight: bold; /* Bold font */
+  color: #ffcc00; /* Gold color */
+  text-align: center; /* Center align rank */
+}
+
+/* First Place - Gold */
+.rank-1 .leaderboard-rank {
+  color: #ffd700; /* Gold */
+  font-size: 28px; /* Larger size for first place */
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); /* Shadow effect */
+}
+
+/* Second Place - Silver */
+.rank-2 .leaderboard-rank {
+  color: #c0c0c0; /* Silver */
+  font-size: 26px; /* Size for second place */
+  text-shadow: 0 0 10px rgba(192, 192, 192, 0.8); /* Shadow effect */
+}
+
+/* Third Place - Bronze */
+.rank-3 .leaderboard-rank {
+  color: #cd7f32; /* Bronze */
+  font-size: 24px; /* Size for third place */
+  text-shadow: 0 0 10px rgba(205, 127, 50, 0.8); /* Shadow effect */
+}
+
+/* Default Rank Style */
+.leaderboard-name {
+  text-align: left; /* Left align name */
+  font-size: 20px; /* Font size */
+  color: #fff; /* White color */
+}
+
+.leaderboard-score {
+  font-weight: bold; /* Bold font */
+  color: #4caf50; /* Green color */
+  font-size: 20px; /* Font size */
+  text-align: right; /* Right align score */
+}
+
+.leaderboard-place {
+  font-size: 0.9em; /* Font size for place */
+  color: #ccc; /* Color for place */
+  text-align: center; /* Center align place */
+}
+
+.leaderboard-department {
+  font-size: 0.9em; /* Font size for department */
+  color: #ccc; /* Color for department */
+  text-align: center; /* Center align department */
+}
+
+.home-btn {
+  background-color: #f0f0f0; /* Light grey background */
+  border: 2px solid #007bff; /* Blue border */
+  border-radius: 50%; /* Circular button */
+  width: 50px; /* Width of the button */
+  height: 50px; /* Height of the button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px; /* Icon size */
+  color: #007bff; /* Icon color */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+  margin-right: 10px;
+}
+
+.home-btn:hover {
+  background-color: #007bff; /* Blue background on hover */
+  color: #fff; /* White icon color on hover */
+  transform: scale(1.1); /* Slightly enlarge the button on hover */
+}
+
+.home-btn:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Custom focus outline */
+}
+
+/* Header Styling */
+.header {
+  font-weight: bold; /* Bold font for header */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Slightly different background for header */
+}
+
+/* Adjusted Rank, Name, Score, Place, and Department */
+.leaderboard-rank,
+.leaderboard-name,
+.leaderboard-time,
+.leaderboard-place,
+.leaderboard-department {
+  text-align: center; /* Center align all columns */
+  color: #fff; /* White color for text */
+}
