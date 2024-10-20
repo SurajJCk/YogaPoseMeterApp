@@ -1,0 +1,224 @@
+.home-header {
+  background: linear-gradient(100deg, #ff8c00, #ffa500);
+  width: 100vw;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.home-container {
+  background: black;
+}
+.header-btn:hover {
+  border-color: white;
+}
+
+.home-heading {
+  padding: 0px;
+  margin: 0px;
+  font-size: 44px;
+  margin-left: 30px;
+  color: white;
+  font-family: "Kaushan Script", cursive;
+}
+
+.home-main {
+  margin: auto;
+  margin-top: -10px;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)),
+    url("../../utils/images/yoga_pose.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 750px;
+}
+
+.description {
+  font-size: 66px;
+  color: white;
+  text-align: center;
+  margin: 0px;
+  margin-top: 10px;
+  font-family: "Raleway", sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.btn-section {
+  position: absolute;
+  left: 38vw;
+  top: 60vh;
+}
+
+.btn {
+  padding: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 10px 20px 10px 20px;
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+  font-size: 24px;
+  border-color: #ffa500;
+  border-radius: 8px;
+  border-width: 4px;
+  cursor: pointer;
+}
+.btn:hover {
+  background: rgba(255, 165, 0, 0.2);
+  color: white;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+#about-btn {
+  padding: 5px 10px;
+}
+#about-btn:hover {
+  border-color: white;
+  background-color: white;
+  color: black;
+}
+#about-btn:focus {
+  box-shadow: none;
+  background: white;
+  border-color: white;
+  color: black;
+}
+/* Container Styles */
+.home-container {
+  text-align: center;
+  color: white;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Press Start 2P", cursive; /* A game-like font */
+}
+
+/* Header Styles */
+.home-header {
+  margin-bottom: 20px;
+}
+
+.home-heading {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.description {
+  font-size: 1.5rem;
+  color: #ffeb3b;
+  margin-bottom: 20px;
+}
+
+/* Button Section */
+.btn-section {
+  display: flex;
+  gap: 20px;
+}
+
+.neon-btn {
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  color: white;
+  border: none;
+  background: linear-gradient(135deg, #ff512f, #dd2476);
+  box-shadow: 0px 0px 15px rgba(255, 78, 107, 0.5);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.neon-btn:hover {
+  box-shadow: 0px 0px 25px rgba(255, 78, 107, 1);
+  transform: scale(1.05);
+}
+
+/* Disclaimer Overlay */
+.disclaimer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Disclaimer Popup */
+.disclaimer-popup {
+  background: linear-gradient(135deg, #ff512f, #dd2476);
+  padding: 30px;
+  border-radius: 15px;
+  color: white;
+  width: 300px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  position: relative;
+  animation: popup 0.5s ease;
+}
+
+/* Popup Animation */
+@keyframes popup {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Disclaimer Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.disclaimer-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.disclaimer-text {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Accept Button for Disclaimer */
+.btn-accept {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-accept:hover {
+  background-color: #66bb6a;
+  transform: scale(1.05);
+}
+
+/* Neon Effect for Main Text */
+.neon-text {
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #ff512f, 0 0 15px #ff512f,
+    0 0 20px #dd2476, 0 0 30px #dd2476, 0 0 40px #dd2476;
+}

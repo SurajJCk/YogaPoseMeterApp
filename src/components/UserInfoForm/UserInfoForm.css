@@ -1,0 +1,68 @@
+/* Modal Styling for Gaming Look */
+.game-modal .modal-content {
+  background-color: #1a1a1d; /* Dark background */
+  border-radius: 15px;
+  border: 3px solid #ffcc00; /* Neon yellow border */
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.8); /* Neon glow */
+}
+
+.game-modal-header {
+  border-bottom: none;
+}
+
+.neon-title {
+  margin-left: 0px;
+  color: #ff512f;
+  text-align: left;
+  font-size: 32px;
+  font-family: "Press Start 2P", cursive;
+  text-shadow: 0 0 5px #fff, 0 0 10px #ff512f, 0 0 15px #ff512f,
+    0 0 20px #ff512f;
+}
+
+/* Form Labels */
+.game-label {
+  color: #ffcc00; /* Neon yellow */
+  font-family: "Press Start 2P", cursive;
+  margin-bottom: 10px;
+}
+
+/* Inputs */
+.game-input {
+  background-color: #333;
+  color: #fff;
+  border: 2px solid #ff512f;
+  padding: 10px;
+  font-family: "Press Start 2P", cursive;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 81, 47, 0.8);
+  margin-bottom: 10px;
+}
+
+.game-input:focus {
+  border-color: #ffcc00;
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+}
+
+/* Submit Button */
+.game-button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(90deg, #ff512f, #dd2476);
+  border: none;
+  color: white;
+  font-family: "Press Start 2P", cursive;
+  font-size: 18px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(255, 81, 47, 0.8);
+  transition: all 0.3s ease;
+  display: inline-block; /* Ensure the button is inline */
+  margin: 10px 0; /* Adjust margins as needed */
+  text-align: left; /* Align text to the left */
+}
+
+.game-button:hover {
+  background: linear-gradient(90deg, #dd2476, #ff512f);
+  box-shadow: 0 0 30px rgba(255, 204, 0, 0.8);
+}
