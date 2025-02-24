@@ -1,31 +1,32 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+require('dotenv').config();
+const { initializeApp } = require('firebase/app');
+const { getFirestore, collection, doc, setDoc, getDoc, query, where, orderBy, getDocs } = require('firebase/firestore');
+const { getAnalytics } = require('firebase/analytics');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
-mongoose.connect(
-  "mongodb+srv://codewithsjc:wlwlTQx7OBg58dYb@cluster0.mongodb.net/yogaGameDB",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID
+};
 
-// Define the schema for the leaderboard
-const leaderboardSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  place: { type: String, required: true },
-  department: { type: String, required: true },
-  pose: { type: String, required: false },
-  time: { type: Number, required: true }, // Best time for the pose
-});
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
 
-// Create a model based on the schema
-const Leaderboard = mongoose.model("Leaderboard", leaderboardSchema);
+// Note: Analytics is typically used in client-side applications
+// If you need analytics in the backend, you'll need to use a different approach
+// as getAnalytics() is meant for browser environments
 
 // Middleware
 app.use(cors());
@@ -35,42 +36,37 @@ app.use(express.json());
 app.post("/add-time", async (req, res) => {
   const { name, place, department, pose, time } = req.body;
 
-  // Validation to ensure all fields are provided
-  // if (
-  //   !name ||
-  //   !place ||
-  //   !department ||
-  //   !pose ||
-  //   typeof time !== "number" ||
-  //   time < 0
-  // ) {
-  //   return res.status(400).json({
-  //     message:
-  //       "Invalid input. Ensure all fields are filled and time is a positive number.",
-  //   });
-  // }
-
   try {
+    const leaderboardRef = collection(db, 'leaderboard');
+    const userPoseRef = doc(leaderboardRef, `${name}_${pose}`);
+    
     // Check if the user already has an entry for the specific pose
-    let existingUser = await Leaderboard.findOne({ name, pose });
+    const userDoc = await getDoc(userPoseRef);
 
-    // If user exists, update their time if the new time is better (longer)
-    if (existingUser) {
-      if (time > existingUser.time) {
-        // Update to the new best time
-        existingUser.time = time;
-        await existingUser.save();
+    if (userDoc.exists()) {
+      const existingTime = userDoc.data().time;
+      // Update only if new time is better
+      if (time > existingTime) {
+        await setDoc(userPoseRef, {
+          name,
+          place,
+          department,
+          pose,
+          time,
+          updatedAt: new Date().toISOString()
+        });
       }
     } else {
-      // Create a new entry for the user
-      const newEntry = new Leaderboard({
+      // Create a new entry
+      await setDoc(userPoseRef, {
         name,
         place,
         department,
         pose,
         time,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       });
-      await newEntry.save();
     }
 
     res.json({ message: "Time added/updated successfully!" });
@@ -80,33 +76,31 @@ app.post("/add-time", async (req, res) => {
   }
 });
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-// });
-
 // API to get the leaderboard sorted by best time (longest time descending)
 app.get("/leaderboard", async (req, res) => {
   try {
-    let pose = req.query.pose;
-    // Retrieve and sort the leaderboard by time (longest duration first)
-    const leaderboard = await Leaderboard.find({ pose: pose }).sort({
-      time: -1,
+    const pose = req.query.pose;
+    const leaderboardRef = collection(db, 'leaderboard');
+    
+    // Create a query to get entries for specific pose, ordered by time
+    const q = query(
+      leaderboardRef,
+      where('pose', '==', pose),
+      orderBy('time', 'desc')
+    );
+
+    const querySnapshot = await getDocs(q);
+    const leaderboard = [];
+    
+    querySnapshot.forEach((doc) => {
+      leaderboard.push(doc.data());
     });
 
     if (leaderboard.length === 0) {
       return res.json({ message: "No entries in the leaderboard yet." });
     }
 
-    // Return the sorted leaderboard in descending order
-    res.json(
-      leaderboard.map((entry, index) => ({
-        position: index + 1,
-        name: entry.name,
-        time: `${entry.time} seconds`,
-        place: entry.place,
-        department: entry.department,
-      }))
-    );
+    res.json(leaderboard);
   } catch (error) {
     console.error("Error fetching leaderboard:", error);
     res.status(500).json({ message: "Server error: " + error.message });
@@ -118,7 +112,6 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Yoga Game API!");
 });
 
-// Start the server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
